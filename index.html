@@ -28,7 +28,7 @@
         <li>Payments</li>
         <li>Finish</li>
     </ul>
-    <form method="POST" action="./php/action_page.php">
+    <form method="POST" action="./php/action_page.php" enctype="multipart/form-data">
         <!-- fieldsets -->
         <fieldset class="inputField">
             <h2 class="fs-title">Personal Details</h2>
@@ -114,7 +114,7 @@
             <div class="uploadArea">
                 <!--                <form action="/php/medical_report_upload.php" method="POST">-->
                 <div style="padding-right: 10px; padding-left: 10px; padding-top: 10px">
-                    <input type="file" id="medicalReportFile" name="filename">
+                    <input type="file" id="medicalReportFile" name="medicalReportFile">
                 </div>
                 <div style="padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px">
                     <button type="button" id="medicalReportSubmit" class="uploadButton">Upload</button>
@@ -139,7 +139,7 @@
             <h3 class="fs-subtitle" style="text-align: start">Upload your Payment Receipt</h3>
             <div class="uploadArea">
                 <div style="padding-right: 10px; padding-left: 10px; padding-top: 10px">
-                    <input type="file" id="paymentReceipt" name="filename">
+                    <input type="file" id="paymentReceipt" name="paymentFile">
                 </div>
                 <div style="padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px">
                     <button type="button" id="paymentReceiptSubmit" class="uploadButton">Upload</button>
