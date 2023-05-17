@@ -227,7 +227,7 @@
 </body>
 </html>
 <?php
-$con = mysqli_connect('localhost', 'root', '', 'db_student_gym');
+$con = mysqli_connect('localhost', 'root', '', 'gym_manager');
 if (isset($_POST['submit'])) {
 
 
@@ -236,7 +236,7 @@ if (isset($_POST['submit'])) {
     $medicalReport_pdf_type = $_FILES['medicalReportFile']['type'];
     $medicalReport_pdf_size = $_FILES['medicalReportFile']['size'];
     $medicalReport_pdf_temp = $_FILES['medicalReportFile']['tmp_name'];
-    $medicalReport_upload_to = '../Upload/MedicalReportFiles/';
+    $medicalReport_upload_to = './Upload/MedicalReportFiles/';
     move_uploaded_file($medicalReport_pdf_temp, $medicalReport_upload_to . $medicalReport_pdf_name);
 
 // payment file
@@ -244,7 +244,7 @@ if (isset($_POST['submit'])) {
     $payment_pdf_type = $_FILES['paymentFile']['type'];
     $payment_pdf_size = $_FILES['paymentFile']['size'];
     $payment_pdf_temp = $_FILES['paymentFile']['tmp_name'];
-    $payment_upload_to = '../Upload/PaymentSlipFiles/';
+    $payment_upload_to = './Upload/PaymentSlipFiles/';
     move_uploaded_file($payment_pdf_temp, $payment_upload_to . $payment_pdf_name);
 
 
@@ -277,10 +277,10 @@ if (isset($_POST['submit'])) {
     $txtHospitalLocation = $_POST['hospital_location'];
 
 // database insert SQL code
-    $sql = "INSERT INTO `tbl` ( `name`,`phoneHome`,`phonePersonal`,`address`,
-                   `age`,`email`,`regNumber`,`height`,`weight`,
-                   `bmi`,`gymName`,`phoneTrainer`,`trainerName`,`helth_condition`,`medicalReport_file_name`,
-                   `doctor_name`,`contact_number`,`hospital_location`,`paymentFile`)
+    $sql = "INSERT INTO `members` ( `name`,`phone_home`,`phone_personal`,`address`,
+                   `age`,`email`,`reg_number`,`height`,`weight`,
+                   `bmi`,`gym_name`,`phone_trainer`,`trainer_name`,`health_condition`,`medical_report_file_name`,
+                   `doctor_name`,`hospital_contact_number`,`hospital_location`,`payment_file`)
         VALUES ('$txtName','$txtPhoneHome','$txtPhonePersonal','$txtAddress',
                 '$txtAge','$txtEmail','$txtRegNumber','$txtHeight',
                 '$txtWeight','$txtBMI','$txtGymName','$txtPhoneTrainer',
