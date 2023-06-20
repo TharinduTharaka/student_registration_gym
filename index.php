@@ -238,6 +238,7 @@
 
 
         $("#submitData").click(function() {
+
         // // Check for form errors
         // const errorFields = document.querySelectorAll('fieldset.active input:invalid');
         // if (errorFields.length > 0) {
