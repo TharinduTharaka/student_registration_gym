@@ -17,7 +17,15 @@
 <!-- multistep form -->
 <div id="msform">
 
-    <h2 style="padding-bottom: 3%; font-weight: normal; color: white; font-size: xxx-large; font-style: normal;  font-family: georgia, serif; text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);">KIU GYM REGISTRATION</h2>
+    <h2
+    style="padding-bottom: 3%;
+    font-weight: normal;
+    color: white;
+    font-size: xxx-large;
+    font-style: normal; 
+    font-family: georgia, serif;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);"
+    >KIU GYM REGISTRATION</h2>
     <!-- progressbar -->
     <ul id="progressbar">
         <li class="active">Personal Details</li>
@@ -31,23 +39,24 @@
 
         <fieldset class="inputField">
             <h2 class="fs-title">Personal Details</h2>
-            <input type="text" name="fname" id="fname" placeholder="First Name"/>
-            <input type="text" name="lname" id="lname" placeholder="Last Name"/>
-            <input type="text" name="phoneHome" placeholder="Phone (Home)"/>
-            <input type="text" name="phonePersonal" placeholder="Phone (Personal)"/>
-            <textarea name="address" placeholder="Address"></textarea>
-            <input type="text" name="email" placeholder="Email"/>
-            <input type="number" name="age" placeholder="Age"/>
-            <input type="text" name="regNumber" placeholder="Student / Employee Number"/>
+            <input type="text" name="fname" id="fname" placeholder="First Name" required/>
+            <input type="text" name="lname" id="lname" placeholder="Last Name" required/>
+            <input type="text" name="nic" id="nic" placeholder="NIC" required/>
+            <input type="text" name="phoneHome" placeholder="Phone (Home)" required/>
+            <input type="text" name="phonePersonal" placeholder="Phone (Personal)" required/>
+            <textarea name="address" placeholder="Address" required></textarea>
+            <input type="text" name="email" placeholder="Email" required/>
+            <input type="number" name="age" placeholder="Age" required/>
+            <input type="text" name="regNumber" placeholder="Student / Employee Number" required/>
             <input type="button" name="next" class="next action-button" value="Next"/>
         </fieldset>
 
         <fieldset class="inputField">
             <h2 class="fs-title">Appearance</h2>
             <!--        <h3 class="fs-subtitle">Your presence on the social network</h3>-->
-            <input type="number" name="height" placeholder="Height"/>
-            <input type="number" name="weight" placeholder="Weight"/>
-            <input type="number" name="bmi" placeholder="BMI"/>
+            <input type="number" name="height" placeholder="Height (cm)" required/>
+            <input type="number" name="weight" placeholder="Weight (kg)" required/>
+            <input type="number" name="bmi" placeholder="BMI" disabled required/>
             <input type="button" name="previous" class="previous action-button" value="Previous"/>
             <input type="button" name="next" class="next action-button" value="Next"/>
         </fieldset>
@@ -166,43 +175,18 @@
             </div>
             <input type="button" name="previous" class="previous action-button" value="Previous"/>
             <button type="submit" name="submit" class="action-button" id="submitData">Submit</button>
+
+            <p id="error"></p>
         </fieldset>
 
     </form>
 </div>
+
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
 
 <script src="js/index.js"></script>
 <script>
-
-    // $(document).ready(function(){
-    //
-    //     $("#submitData").click(function(){
-    //         // var username = $("#txt_uname").val();
-    //         var fname = $("#fname").val();
-    //         var lname = $("#lname").val();
-    //         // var email = $("#txt_email").val();
-    //
-    //         $.ajax({
-    //             url:'./php/action_page.php',
-    //             type:'post',
-    //             data:{
-    //                 fname:fname,
-    //                 lname:lname
-    //             },
-    //             success:function(response){
-    //                 console.log(response);
-    //                 // location.reload(); // reloading page
-    //             }
-    //         });
-    //         return false;
-    //     });
-    // });
-    // $("form").submit(function(){
-    //     $.post($(this).attr("action"), $(this).serialize());
-    //     return false;
-    // });
 
     $(document).ready(function () {
         $('#gymExperienceField').hide();
@@ -222,6 +206,61 @@
         var val = $("#experienceChoice2").val();
     });
 
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+        }
+    });
+
+        // Get height and weight input elements
+        var heightInput = document.querySelector('input[name="height"]');
+        var weightInput = document.querySelector('input[name="weight"]');
+        var bmiInput = document.querySelector('input[name="bmi"]');
+
+        // Event listener for height and weight inputs
+        heightInput.addEventListener('input', calculateBMI);
+        weightInput.addEventListener('input', calculateBMI);
+
+        // Function to calculate BMI
+        function calculateBMI() {
+        var height = parseFloat(heightInput.value) / 100; // Convert height to meters
+        var weight = parseFloat(weightInput.value);
+        
+        // Check if height and weight inputs are valid numbers
+        if (!isNaN(height) && !isNaN(weight) && height > 0 && weight > 0) {
+            var bmi = weight / (height * height); // Calculate BMI
+            bmiInput.value = bmi.toFixed(2); // Display BMI with 2 decimal places
+        } else {
+            bmiInput.value = ''; // Clear BMI input if inputs are invalid
+        }
+        }
+
+
+
+        $("#submitData").click(function() {
+        // // Check for form errors
+        // const errorFields = document.querySelectorAll('fieldset.active input:invalid');
+        // if (errorFields.length > 0) {
+        // // Display error message in console
+        // errorFields.forEach((field) => {
+        //     console.error(`Error in field: ${field.name}`);
+        // });
+    
+        // // Create error message
+        // const errorMessages = Array.from(errorFields).map((field) => `Error in field: ${field.name}`);
+        // const errorMessage = errorMessages.join('\n');
+    
+        // // Display error message using plain text
+        // const errorElement = document.getElementById('error');
+        // errorElement.textContent = "Test Error: " + errorMessage;
+    
+        // // Prevent form submission
+        // return false;
+        // }
+    
+        console.log("Form submitted successfully");
+    });
+    
 
 </script>
 </body>
@@ -229,7 +268,6 @@
 <?php
 $con = mysqli_connect('localhost', 'root', '', 'gym_manager');
 if (isset($_POST['submit'])) {
-
 
     // medicalReport file
     $medicalReport_pdf_name = rand(1000, 100000) . "-" . $_FILES['medicalReportFile']['name'];
@@ -239,7 +277,9 @@ if (isset($_POST['submit'])) {
     $medicalReport_upload_to = './Upload/MedicalReportFiles/';
     move_uploaded_file($medicalReport_pdf_temp, $medicalReport_upload_to . $medicalReport_pdf_name);
 
-// payment file
+    $medicalReportFilePath = $medicalReport_upload_to . $medicalReport_pdf_name;
+
+    // payment file
     $payment_pdf_name = rand(1000, 100000) . "-" . $_FILES['paymentFile']['name'];
     $payment_pdf_type = $_FILES['paymentFile']['type'];
     $payment_pdf_size = $_FILES['paymentFile']['size'];
@@ -247,64 +287,120 @@ if (isset($_POST['submit'])) {
     $payment_upload_to = './Upload/PaymentSlipFiles/';
     move_uploaded_file($payment_pdf_temp, $payment_upload_to . $payment_pdf_name);
 
+    $paymentFilePath = $payment_upload_to . $payment_pdf_name;
 
-    // get the post records
+    // Get the post records
     $txtFname = $_POST['fname'];
     $txtLname = $_POST['lname'];
-
     $txtName = $txtFname . " " . $txtLname;
-
     $txtPhoneHome = $_POST['phoneHome'];
     $txtPhonePersonal = $_POST['phonePersonal'];
+    $txtEmail = $_POST['email'];
     $txtAddress = $_POST['address'];
     $txtAge = $_POST['age'];
-    $txtEmail = $_POST['email'];
-    $txtRegNumber = $_POST['regNumber'];
-
+    $txtRegNumber = strtoupper($_POST['regNumber']); // Convert to uppercase
     $txtHeight = $_POST['height'];
     $txtWeight = $_POST['weight'];
     $txtBMI = $_POST['bmi'];
-
     $txtExperienceChoice = $_POST['experienceChoice'];
     $txtGymName = $_POST['gymName'];
     $txtPhoneTrainer = $_POST['phoneTrainer'];
     $txtTrainerName = $_POST['trainerName'];
-
-    $txtHealth = $_POST['health'];
-
+    $healthArray = $_POST['health'];
+    $txtHealth = implode(",", $healthArray);
     $txtDoctorName = $_POST['doctor_name'];
     $txtDoctorTel = $_POST['contact_number'];
     $txtHospitalLocation = $_POST['hospital_location'];
-
-// database insert SQL code
-    $sql = "INSERT INTO `members` ( `name`,`phone_home`,`phone_personal`,`address`,
-                   `age`,`email`,`reg_number`,`height`,`weight`,
-                   `bmi`,`gym_name`,`phone_trainer`,`trainer_name`,`health_condition`,`medical_report_file_name`,
-                   `doctor_name`,`hospital_contact_number`,`hospital_location`,`payment_file`)
-        VALUES ('$txtName','$txtPhoneHome','$txtPhonePersonal','$txtAddress',
-                '$txtAge','$txtEmail','$txtRegNumber','$txtHeight',
-                '$txtWeight','$txtBMI','$txtGymName','$txtPhoneTrainer',
-                '$txtTrainerName','$txtHealth','$medicalReport_pdf_name','$txtDoctorName',
-                '$txtDoctorTel','$txtHospitalLocation','$payment_pdf_name')";
+    $txtCreatedAt = date("Y-m-d H:i:s");
 
 
-    $rs = mysqli_query($con, $sql);
+    // Hash the NIC value
+    $txtNIC = strtoupper($_POST['nic']); // Convert to uppercase
+    // $hashedNIC = hash('sha256', $txtNIC);
 
-    if ($rs) {
+    // Check for duplicates in the database
+    $duplicateQuery = "SELECT * FROM members WHERE nic = '$txtNIC' OR reg_number = '$txtRegNumber' OR email = '$txtEmail'";
+    $duplicateResult = mysqli_query($con, $duplicateQuery);
+    $duplicateCount = mysqli_num_rows($duplicateResult);
+
+    if ($duplicateCount > 0) {
+        // Duplicates found
+
+        $duplicateFields = array();
+
+        // Check for duplicate NIC
+        $nicQuery = "SELECT * FROM members WHERE nic = '$txtNIC'";
+        $nicResult = mysqli_query($con, $nicQuery);
+        if (mysqli_num_rows($nicResult) > 0) {
+            $duplicateFields[] = "NIC";
+        }
+
+        // Check for duplicate regNumber
+        $regNumberQuery = "SELECT * FROM members WHERE reg_number = '$txtRegNumber'";
+        $regNumberResult = mysqli_query($con, $regNumberQuery);
+        if (mysqli_num_rows($regNumberResult) > 0) {
+            $duplicateFields[] = "Registration Number";
+        }
+
+        // Check for duplicate email
+        $emailQuery = "SELECT * FROM members WHERE email = '$txtEmail'";
+        $emailResult = mysqli_query($con, $emailQuery);
+        if (mysqli_num_rows($emailResult) > 0) {
+            $duplicateFields[] = "Email";
+        }
+
+        $errorMessage = "A member with the same " . implode(", ", $duplicateFields) . " already exists!";
+
         ?>
 
         <script>
             swal({
-                title: "SUCCESS !",
-                text: "You Have Successfully Registered!",
-                icon: "success",
+                title: "ERROR!",
+                text: "<?php echo $errorMessage; ?>",
+                icon: "error",
             });
         </script>
 
         <?php
+    } else {
+        // No duplicates found, proceed with database insert
+
+        // Insert query
+        $sql = "INSERT INTO `members` (`name`, `phone_home`, `phone_personal`, `address`,
+                `age`, `email`, `reg_number`, `height`, `weight`,
+                `bmi`, `gym_name`, `phone_trainer`, `trainer_name`, `health_condition`, `medical_report_file_name`,
+                `doctor_name`, `hospital_contact_number`, `hospital_location`, `payment_file`, `status`, `created_at`, `nic`)
+        VALUES ('$txtName', '$txtPhoneHome', '$txtPhonePersonal', '$txtAddress',
+                '$txtAge', '$txtEmail', '$txtRegNumber', '$txtHeight',
+                '$txtWeight', '$txtBMI', '$txtGymName', '$txtPhoneTrainer',
+                '$txtTrainerName', '$txtHealth', '$medicalReport_pdf_name', '$txtDoctorName',
+                '$txtDoctorTel', '$txtHospitalLocation', '$paymentFilePath', '1', '$txtCreatedAt', '$txtNIC')";
+
+        $rs = mysqli_query($con, $sql);
+
+        if ($rs) {
+            ?>
+
+            <script>
+                swal({
+                    title: "SUCCESS!",
+                    text: "You have successfully registered!",
+                    icon: "success",
+                 });
+                //.then(function() {
+                //     window.location.replace("success.php");
+                // });
+            </script>
+
+            <?php
+        }
     }
+
 }
 ?>
+
+<!-- HTML form goes here -->
+
 
 
 <!--?>-->

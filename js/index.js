@@ -76,7 +76,3 @@ $(".previous").click(function(){
 		easing: 'easeInOutBack'
 	});
 });
-
-$("#submitData").click(function(){
-	console.log("form submit")
-});
