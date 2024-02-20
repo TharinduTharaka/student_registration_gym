@@ -17,15 +17,13 @@
 <!-- multistep form -->
 <div id="msform">
 
-    <h2
-    style="padding-bottom: 3%;
+    <h2 style="padding-bottom: 3%;
     font-weight: normal;
     color: white;
     font-size: xxx-large;
     font-style: normal; 
     font-family: georgia, serif;
-    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);"
-    >KIU GYM REGISTRATION</h2>
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);">KIU GYM REGISTRATION</h2>
     <!-- progressbar -->
     <ul id="progressbar">
         <li class="active">Personal Details</li>
@@ -206,26 +204,26 @@
         var val = $("#experienceChoice2").val();
     });
 
-    document.addEventListener('keydown', function(event) {
+    document.addEventListener('keydown', function (event) {
         if (event.key === 'Enter') {
             event.preventDefault();
         }
     });
 
-        // Get height and weight input elements
-        var heightInput = document.querySelector('input[name="height"]');
-        var weightInput = document.querySelector('input[name="weight"]');
-        var bmiInput = document.querySelector('input[name="bmi"]');
+    // Get height and weight input elements
+    var heightInput = document.querySelector('input[name="height"]');
+    var weightInput = document.querySelector('input[name="weight"]');
+    var bmiInput = document.querySelector('input[name="bmi"]');
 
-        // Event listener for height and weight inputs
-        heightInput.addEventListener('input', calculateBMI);
-        weightInput.addEventListener('input', calculateBMI);
+    // Event listener for height and weight inputs
+    heightInput.addEventListener('input', calculateBMI);
+    weightInput.addEventListener('input', calculateBMI);
 
-        // Function to calculate BMI
-        function calculateBMI() {
+    // Function to calculate BMI
+    function calculateBMI() {
         var height = parseFloat(heightInput.value) / 100; // Convert height to meters
         var weight = parseFloat(weightInput.value);
-        
+
         // Check if height and weight inputs are valid numbers
         if (!isNaN(height) && !isNaN(weight) && height > 0 && weight > 0) {
             var bmi = weight / (height * height); // Calculate BMI
@@ -233,11 +231,11 @@
         } else {
             bmiInput.value = ''; // Clear BMI input if inputs are invalid
         }
-        }
+    }
 
 
+    $("#submitData").click(function () {
 
-        $("#submitData").click(function() {
         // // Check for form errors
         // const errorFields = document.querySelectorAll('fieldset.active input:invalid');
         // if (errorFields.length > 0) {
@@ -245,28 +243,33 @@
         // errorFields.forEach((field) => {
         //     console.error(`Error in field: ${field.name}`);
         // });
-    
+
         // // Create error message
         // const errorMessages = Array.from(errorFields).map((field) => `Error in field: ${field.name}`);
         // const errorMessage = errorMessages.join('\n');
-    
+
         // // Display error message using plain text
         // const errorElement = document.getElementById('error');
         // errorElement.textContent = "Test Error: " + errorMessage;
-    
+
         // // Prevent form submission
         // return false;
         // }
-    
+
         console.log("Form submitted successfully");
     });
-    
+
 
 </script>
 </body>
 </html>
 <?php
-$con = mysqli_connect('localhost', 'root', '', 'gym_manager');
+
+
+$host = "ls-c6110597522c2052e9c420a5d7b248605c1276f8.clhiumzg0ybz.ap-southeast-1.rds.amazonaws.com";
+$port = 3306;
+// Create connection
+$con = mysqli_connect($host, 'dbmasteruser', 'nSe}R3TWvCNbM6azkgXc5J)$kO~4K*|%', 'gym_manager', $port);
 if (isset($_POST['submit'])) {
 
     // medicalReport file
@@ -386,7 +389,7 @@ if (isset($_POST['submit'])) {
                     title: "SUCCESS!",
                     text: "You have successfully registered!",
                     icon: "success",
-                 });
+                });
                 //.then(function() {
                 //     window.location.replace("success.php");
                 // });
@@ -400,7 +403,6 @@ if (isset($_POST['submit'])) {
 ?>
 
 <!-- HTML form goes here -->
-
 
 
 <!--?>-->
